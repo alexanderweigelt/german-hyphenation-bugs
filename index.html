@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Falsche deutsche Silbentrennung in Browsern</title>
+  <meta name="description" content="Warum Chrome, Safari und Firefox deutsche Komposita wie „Wissensportal“ mit hyphens: auto falsch trennen. Beispiele und Ergebnis einer Analyse.">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+</head>
+
+<body>
+  <main>
+    <header>
+      <h1>Falsche deutsche Silbentrennung in Browsern</h1>
+      <p class="einleitung">Mit <code>lang="de"</code> und <code>hyphens: auto</code> trennen Chrome, Safari und Firefox
+        viele zusammengesetzte Wörter an der falschen Stelle, zum Beispiel <strong>Wissen-sportal</strong> statt
+        Wissens-portal oder <strong>Klimaf-aktor</strong> statt Klima-faktor. Diese Seite zeigt Beispiele in deinem
+        Browser und fasst zusammen, was eine Analyse dazu ergeben hat.</p>
+      <p class="hinweis">Stand: 12.10.2026. Gemessen unter macOS 26.6.2 mit Chrome 155, Safari 26.6.2 und Firefox
+        Developer Edition 158. Andere Betriebssysteme, macOS-Versionen und Schriften können andere Ergebnisse liefern.
+        Die Seite verwendet kein JavaScript und keine weichen Trennzeichen.</p>
+    </header>
+
+    <section aria-labelledby="problem">
+      <h2 id="problem">Das Problem</h2>
+      <p>Nach dem amtlichen Regelwerk werden zusammengesetzte Wörter zwischen ihren Bestandteilen getrennt (§ 85).
+        „Wissensportal“ besteht aus <em>Wissens</em> und <em>portal</em>, richtig ist also <code>Wis-sens-por-tal</code>.
+        Die Browser bieten stattdessen <code>Wis-sen-spor-tal</code> an. Fällt der Zeilenumbruch auf diese Stelle,
+        steht am Zeilenende „Wissen-“ und in der nächsten Zeile „sportal“. Die falsche Stelle kommt aus den
+        Trenndaten, die der Browser verwendet.</p>
+    </section>
+
+    <section aria-labelledby="faelle">
+      <h2 id="faelle">1. Beispiele für falsche Trennungen</h2>
+      <p>Jedes Wort steht in einer Box mit fester Breite (gestrichelte Linie). Die Breite ist so gewählt, dass der
+        Umbruch in Chrome, Safari und Firefox unter macOS 26.6.2 genau an der falschen Stelle landet. Das wurde in
+        allen drei Browsern geprüft. Mit einer anderen Schrift oder auf einem anderen System kann der Umbruch an einer
+        anderen Stelle liegen.</p>
+      <ul class="faelle">
+        <li class="fall">
+          <p class="wort" style="width: 7.5ch">Wissensportal</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Wissen- / sportal</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Wis-sens-por-tal</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 6.25ch">Klimafaktor</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Klimaf- / aktor</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Kli-ma-fak-tor</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 8ch">Wärmeinhalt</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Wärmein- / halt</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Wär-me-in-halt</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 9.75ch">Wasserstofferzeugung</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Wasserstof- / ferzeugung</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Was-ser-stoff-er-zeu-gung</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 9ch">Machtungleichheit</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Machtun- / gleichheit</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Macht-un-gleich-heit</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 8ch">Netzwerkorganisation</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Netzwer- / korganisation</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Netz-werk-or-ga-ni-sa-ti-on</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 6.5ch">Texterkennung</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Texter- / kennung</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Text-er-ken-nung</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 5.25ch">Meereisflächen</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Mee- / reisflächen</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Meer-eis-flä-chen</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 7.75ch">Feinstaubemissionen</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Feinstau- / bemissionen</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Fein-staub-emis-si-o-nen</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 8ch">Grubenacker</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Grubena- / cker</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Gru-ben-acker</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 5.25ch">polytheistisch</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">polyt- / heistisch</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">po-ly-the-is-tisch</dd>
+          </dl>
+        </li>
+        <li class="fall">
+          <p class="wort" style="width: 7ch">Permafröste</p>
+          <dl>
+            <dt>Umbruch auf macOS 26.6.2</dt>
+            <dd class="ist">Permaf- / röste</dd>
+            <dt>Richtig</dt>
+            <dd class="soll">Per-ma-frös-te</dd>
+          </dl>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="trennstellen">
+      <h2 id="trennstellen">2. Alle Trennstellen deines Browsers</h2>
+      <p>In der Spalte „Dein Browser“ steht jedes Wort in einer Box ohne Breite. Der Browser muss dadurch an jeder
+        Stelle trennen, die er kennt. Die anderen Spalten sind Messwerte unter macOS 26.6.2 zum Vergleich.</p>
+      <div class="tabelle">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Dein Browser</th>
+              <th scope="col">Chrome 155 und Safari 26.6.2</th>
+              <th scope="col">Firefox Developer Edition 158</th>
+              <th scope="col">Korrigierte TeX-Muster (2024)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="schmal">Wissensportal</span></td>
+              <td>Wis-<mark>sen-spor</mark>-tal</td>
+              <td>Wis-<mark>sen-spor</mark>-tal</td>
+              <td>Wis-sens-por-tal</td>
+            </tr>
+            <tr>
+              <td><span class="schmal">Klimafaktor</span></td>
+              <td>Kli-<mark>maf-ak</mark>-tor</td>
+              <td>Kli-<mark>maf-ak</mark>-tor</td>
+              <td>Kli-ma-fak-tor</td>
+            </tr>
+            <tr>
+              <td><span class="schmal">Wärmeinhalt</span></td>
+              <td>Wär-<mark>mein</mark>-halt</td>
+              <td>Wär-<mark>mein</mark>-halt</td>
+              <td>Wär-me-inhalt</td>
+            </tr>
+            <tr>
+              <td><span class="schmal">Wasserstofferzeugung</span></td>
+              <td>Was-ser-<mark>stof-fer</mark>-zeu-gung</td>
+              <td>Was-ser-<mark>stof-fer</mark>-zeu-gung</td>
+              <td>Was-ser-stoff-er-zeu-gung</td>
+            </tr>
+            <tr>
+              <td><span class="schmal">Ausgleichsenergie</span></td>
+              <td>Aus-gleich-<mark>sener</mark>-gie</td>
+              <td>Aus-gleich-<mark>s-ener</mark>-gie</td>
+              <td>Aus-gleichs-en-er-gie</td>
+            </tr>
+            <tr>
+              <td><span class="schmal">Methanemissionen</span></td>
+              <td>Me-tha-<mark>nemis</mark>-sio-nen</td>
+              <td>Me-tha-<mark>n-emis</mark>-sio-nen</td>
+              <td>Me-than-emis-sio-nen</td>
+            </tr>
+            <tr>
+              <td><span class="schmal">polytheistisch</span></td>
+              <td>po-<mark>lyt-heis</mark>-tisch</td>
+              <td>po-<mark>lyt-he</mark>-is-tisch</td>
+              <td>po-ly-the-is-tisch</td>
+            </tr>
+            <tr>
+              <td><span class="schmal">Permafröste</span></td>
+              <td>Per-ma-frös-te</td>
+              <td>Per-ma-<mark>f-rös</mark>-te</td>
+              <td>Per-ma-<mark>f-rös</mark>-te</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="hinweis">Markiert sind die Silben um eine falsche Stelle. Chrome und Safari fragen auf macOS dieselbe
+        Systemfunktion ab und zeigen deshalb dieselben Stellen. In der Box ohne Breite lassen sie Stellen aus, die nur einen Buchstaben
+        abtrennen würden. Bei normaler Breite nutzen sie diese Stellen, siehe „Permaf-röste“ in Abschnitt 1. Firefox bringt
+        eigene Muster aus dem Jahr 2011 mit. „Permafröste“ trennen auch die korrigierten Muster noch falsch.</p>
+    </section>
+
+    <section aria-labelledby="breite">
+      <h2 id="breite">3. Sichtbar wird der Fehler nur bei passender Breite</h2>
+      <p>Die falsche Stelle ist immer vorhanden. Ob man sie sieht, hängt davon ab, wo die Zeile umbricht. Die Box lässt
+        sich an der rechten unteren Ecke in der Breite ziehen.</p>
+      <div class="ziehbar">
+        <p class="ueberschrift">Neue Angebote im Wissensportal: Wärmeinhalt und Klimafaktor im Vergleich</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="pretty">
+      <h2 id="pretty">4. Warum Safari manchmal nicht trennt</h2>
+      <p>Mit <code>text-wrap: pretty</code> optimiert Safari alle Zeilen eines Absatzes und vermeidet Trennungen.
+        Chrome nutzt <code>pretty</code> vor allem gegen kurze letzte Zeilen. In Safari sieht dieselbe Überschrift
+        deshalb oft anders aus. Ohne <code>pretty</code> wählt Safari dieselben Umbrüche wie die anderen Browser und
+        kennt dieselben falschen Stellen.</p>
+      <div class="vergleich">
+        <figure>
+          <figcaption><code>text-wrap: wrap</code></figcaption>
+          <div class="ziehbar">
+            <p class="ueberschrift">Neue Angebote im Wissensportal: Wärmeinhalt und Klimafaktor im Vergleich</p>
+          </div>
+        </figure>
+        <figure>
+          <figcaption><code>text-wrap: pretty</code></figcaption>
+          <div class="ziehbar">
+            <p class="ueberschrift pretty">Neue Angebote im Wissensportal: Wärmeinhalt und Klimafaktor im Vergleich</p>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="abhilfen">
+      <h2 id="abhilfen">5. Was CSS und HTML leisten können</h2>
+      <p>Eine richtige Trennung lässt sich mit CSS nicht erzwingen, weil keine der Engines die Stelle
+        <code>Wissens|portal</code> kennt. CSS kann Trennstellen nur unterdrücken. Die Boxen haben dieselben Breiten
+        wie in Abschnitt 1.</p>
+      <div class="vergleich">
+        <figure class="fall">
+          <figcaption><code>hyphens: auto</code> (Ausgangslage)</figcaption>
+            <p class="wort" style="width: 7.5ch">Wissensportal</p>
+            <p class="wort" style="width: 6.25ch">Klimafaktor</p>
+            <p class="wort" style="width: 5.25ch">polytheistisch</p>
+          <p class="hinweis">Alle drei Wörter brechen an der falschen Stelle um.</p>
+        </figure>
+        <figure class="fall">
+          <figcaption><code>hyphens: manual</code></figcaption>
+            <p class="wort manuell" style="width: 7.5ch">Wissensportal</p>
+            <p class="wort manuell" style="width: 6.25ch">Klimafaktor</p>
+            <p class="wort manuell" style="width: 5.25ch">polytheistisch</p>
+          <p class="hinweis">Kein falscher Trennstrich mehr. Lange Wörter brechen aber ohne Strich an beliebiger Stelle um, weil <code>overflow-wrap: break-word</code> greift, etwa „Wissensp/ortal“.</p>
+        </figure>
+        <figure class="fall">
+          <figcaption>Mindestlängen 6 / 3</figcaption>
+            <p class="wort grenzen" style="width: 7.5ch">Wissensportal</p>
+            <p class="wort grenzen" style="width: 6.25ch">Klimafaktor</p>
+            <p class="wort grenzen" style="width: 5.25ch">polytheistisch</p>
+          <p class="hinweis">„Wissen-“ und „Klimaf-“ haben sechs Zeichen und bleiben. „polyt-“ verschwindet, dafür bricht das Wort je nach Browser anders um, teils ohne Strich. Grenzwerte filtern Stellen, sie erzeugen keine richtigen.</p>
+        </figure>
+        <figure class="fall">
+          <figcaption><code>&lt;wbr&gt;</code> an der Fuge</figcaption>
+            <p class="wort manuell" style="width: 7.5ch">Wissens<wbr>portal</p>
+            <p class="wort manuell" style="width: 6.25ch">Klima<wbr>faktor</p>
+            <p class="wort manuell" style="width: 5.25ch">poly<wbr>theistisch</p>
+          <p class="hinweis">Bricht an der gewünschten Stelle, aber ohne Strich. Passt der Rest nicht in die Zeile, folgt ein Notumbruch („theisti/sch“). Jedes Wort muss von Hand gepflegt werden.</p>
+        </figure>
+      </div>
+    </section>
+
+    <section aria-labelledby="ergebnis">
+      <h2 id="ergebnis">6. Was die Analyse ergeben hat</h2>
+      <ul>
+        <li><strong>Chrome und Safari auf macOS</strong> haben keine eigenen deutschen Trenndaten. Sie fragen die
+          Trennstellen beim Betriebssystem ab (Apple CoreFoundation). Korrigieren kann den Fehler dort nur Apple.</li>
+        <li><strong>Firefox</strong> liefert deutsche TeX-Trennmuster aus dem Jahr 2011 aus. Die Upstream-Muster sind
+          an vielen dieser Fugen seit 2021 korrigiert, Firefox hat sie nicht übernommen. Mozilla kennt das Problem
+          (Bugs <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2001880">2001880</a> und
+          <a href="https://bugzilla.mozilla.org/show_bug.cgi?id=2079326">2079326</a>).</li>
+        <li><strong>macOS trennt fast genau wie Firefox' alte Muster:</strong> bei 14 949 von 14 984 deutschen Wörtern
+          gleich. Dass Apple dieselben Muster nutzt, ist daraus abgeleitet, nicht belegt.</li>
+        <li><strong>Kein Einzelfall:</strong> In 14 984 Wortformen aus deutschen Wikipedia-Artikeln bietet macOS bei
+          mindestens 117 eine falsche Stelle an, fast immer an einer verschobenen Wortfuge. Die Autoren der Trennmuster
+          dokumentieren genau diese Fehlerklasse für die alten Muster.</li>
+        <li><strong>Empfehlung:</strong> Fehler bei Apple und Mozilla melden, <code>hyphens: auto</code> vorerst
+          beibehalten und nur bei Bedarf gezielt in Überschriften eingreifen.</li>
+      </ul>
+      <p>Belege, Quellen und Grenzen der Aussagen stehen in der README des Repositorys.</p>
+    </section>
+  </main>
+</body>
+
+</html>
